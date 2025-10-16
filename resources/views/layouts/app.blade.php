@@ -13,3 +13,8 @@
     </div>
 </body>
 </html>
+
+<nav class="mb-6">
+    <a href="{{ route('books.index') }}" class="text-blue-600 mr-4">Books</a>
+    <a href="{{ route('bookcategories.index') }}" class="text-blue-600">Categories</a>
+</nav>

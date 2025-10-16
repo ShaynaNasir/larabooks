@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 // use Model in controller
 use App\Models\Book;
+use App\Models\BookCategory;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 
@@ -15,16 +16,20 @@ class BookController extends Controller
     public function index()
     {
         $books = Book::all();
-        return view('books.index', compact('books'));
+        $categories = BookCategory::all();
+        return view('books.index', compact('books', 'categories'));
     }
+
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
-    {
-        return view('books.create');
-    }
+	{
+		$categories = BookCategory::all();
+		return view('books.create', compact('categories'));
+	}
+
 
     /**
      * Store a newly created resource in storage.
@@ -33,8 +38,10 @@ class BookController extends Controller
     {
         //Validate the incoming request
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
-        ]);
+		'title' => 'required|string|max:255',
+		'book_category_id' => 'nullable|exists:book_categories,id',
+		]);
+
 
         // Create and save the book
         Book::create($validated);
@@ -55,18 +62,21 @@ class BookController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(Book $book)
-    {
-        return view('books.edit', compact('book'));
-    }
+	{
+		$categories = BookCategory::all();
+		return view('books.edit', compact('book', 'categories'));
+	}
+
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Book $book): RedirectResponse
 	{
-    $validated = $request->validate([
-        'title' => 'required|string|max:255',
-    ]);
+		$validated = $request->validate([
+		'title' => 'required|string|max:255',
+		'book_category_id' => 'nullable|exists:book_categories,id',
+		]);
 
     $book->update($validated);
 

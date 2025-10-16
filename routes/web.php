@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\BookCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,5 +32,8 @@ Route::get('/hello2/{user}', function ($user) {
 });
 
 Route::resource('books', BookController::class);
+
+Route::resource('bookcategories', BookCategoryController::class);
+
 
 

@@ -41,4 +41,15 @@
     @include('books.create') 
 </body> 
  
-</html> 
+@foreach ($books as $book)
+    <li class="flex mb-1">
+        <span class="flex-1">
+            {{ $book->title }}
+            @if($book->category)
+                <span class="text-gray-500"> ({{ $book->category->name }})</span>
+            @endif
+        </span>
+        <!-- ... rest of actions ... -->
+    </li>
+@endforeach
+
